@@ -25,43 +25,47 @@ class _OtpScreenState extends State<OtpScreen> {
           centerTitle: true,
           title: const Text("Otp Screen"),
         ),
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Pinput(
-            length: 6,
-            controller: otpController,
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                try {
-                  PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                      verificationId: widget.verifacationid,
-                      smsCode: otpController.text);
-                  FirebaseAuth.instance.signInWithCredential(credential).then(
-                    (value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Home(),
-                          ));
-                    },
-                  );
-                } catch (ex) {
-                  // log();
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  fixedSize: const Size(double.infinity, 40)),
-              child: const Text(
-                'Verify otp',
-                style: TextStyle(color: Colors.black),
-              ))
-        ]),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Pinput(
+              length: 6,
+              controller: otpController,
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: widget.verifacationid,
+                            smsCode: otpController.text);
+                    FirebaseAuth.instance.signInWithCredential(credential).then(
+                      (value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ));
+                      },
+                    );
+                  } catch (ex) {
+                    // log();
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    fixedSize: const Size(double.infinity, 40)),
+                child: const Text(
+                  'Verify otp',
+                  style: TextStyle(color: Colors.black),
+                ))
+          ]),
+        ),
       ),
     );
   }
